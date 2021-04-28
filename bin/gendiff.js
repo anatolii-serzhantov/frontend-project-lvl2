@@ -28,21 +28,21 @@ const genDiff = (data1, data2) => {
     const keys2 = _.keys(data2);
     const keys = _.union(keys1, keys2);
    
-    let result = [];
+    let listOfDifferences = [];
     for (const key of keys) {
       if (!_.has(data1, key)) {
-        result.push(`  + ${key}: ${data2[key]}`);
+        listOfDifferences.push(`  + ${key}: ${data2[key]}`);
       } else if (!_.has(data2, key)) {
-        result.push(`  - ${key}: ${data1[key]}`);
+        listOfDifferences.push(`  - ${key}: ${data1[key]}`);
       } else if (data1[key] !== data2[key]) {
-        result.push(`  - ${key}: ${data1[key]}`);
-        result.push(`  + ${key}: ${data2[key]}`);
+        listOfDifferences.push(`  - ${key}: ${data1[key]}`);
+        listOfDifferences.push(`  + ${key}: ${data2[key]}`);
       } else {
-        result.push(`    ${key}: ${data1[key]}`);
+        listOfDifferences.push(`    ${key}: ${data1[key]}`);
       }
     }
 
-    result.sort(function(a, b){
+    listOfDifferences.sort(function(a, b){
         if (a[4] < b[4]) {
           return -1;
         }
@@ -52,9 +52,9 @@ const genDiff = (data1, data2) => {
         return 0;
     })
 
-    const test = result.join("\r\n");
-    console.log(`{\r\n${test}\r\n}`)
-    return result;
+    const str = listOfDifferences.join("\r\n");
+    //console.log(`{\r\n${str}\r\n}`)
+    return console.log(`{\r\n${str}\r\n}`);
 }
 
 genDiff(obj1, obj2);
