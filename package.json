@@ -22,6 +22,7 @@
   "homepage": "https://github.com/anatolii-serzhantov/frontend-project-lvl2#readme",
   "dependencies": {
     "commander": "^7.2.0",
+    "fs": "*",
     "lodash": "^4.17.21"
   }
 }
