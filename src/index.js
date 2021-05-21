@@ -45,4 +45,4 @@ const genDiff = (data1, data2) => {
   return `{\r\n${str}\r\n}`
 }
 
-export default genDiff
+export default genDiff;
