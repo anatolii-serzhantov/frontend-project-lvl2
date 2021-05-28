@@ -4,7 +4,7 @@ import path from 'path'
 
 const readFile = (pathName) => {
   const fullPath = path.resolve(process.cwd(), pathName)
-  const data = fs.readFileSync(fullPath).toString()
+  const data = fs.readFileSync(fullPath, 'utf-8').toString()
   return data
 }
 
