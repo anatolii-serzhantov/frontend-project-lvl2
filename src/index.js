@@ -1,47 +1,11 @@
-import _ from 'lodash'
-//import fs from 'fs'
-//import path from 'path'
+import createDiffTree from './diffTree.js'
 import parse from './parser.js';
 
-// const readFile = (pathName) => {
-//   const fullPath = path.resolve(process.cwd(), pathName)
-//   const data = fs.readFileSync(fullPath, 'utf-8').toString()
-//   return data
-// }
-
-const genDiff = (data1, data2) => {
-  const obj1 = parse(data1)
-  const obj2 = parse(data2)
-  const keys1 = _.keys(obj1)
-  const keys2 = _.keys(obj2)
-  const keys = _.union(keys1, keys2)
-
-  const listOfDifferences = []
-  for (const key of keys) {
-    if (!_.has(obj1, key)) {
-      listOfDifferences.push(`  + ${key}: ${obj2[key]}`)
-    } else if (!_.has(obj2, key)) {
-      listOfDifferences.push(`  - ${key}: ${obj1[key]}`)
-    } else if (obj1[key] !== obj2[key]) {
-      listOfDifferences.push(`  - ${key}: ${obj1[key]}`)
-      listOfDifferences.push(`  + ${key}: ${obj2[key]}`)
-    } else {
-      listOfDifferences.push(`    ${key}: ${obj1[key]}`)
-    }
-  }
-
-  listOfDifferences.sort(function (a, b) {
-    if (a[4] < b[4]) {
-      return -1
-    }
-    if (a[4] > b[4]) {
-      return 1
-    }
-    return 0
-  })
-
-  const str = listOfDifferences.join('\r\n')
-  return `{\r\n${str}\r\n}`
+const genDiff = (filepath1, filepath2) => {
+  const obj1 = parse(filepath1)
+  const obj2 = parse(filepath2)
+  const diffTree = createDiffTree(obj1, obj2)
+  return diffTree
 }
 
 export default genDiff
